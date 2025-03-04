@@ -1,27 +1,83 @@
-<launch>
-  <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom" args="0 0 0 0 0 0 map odom" /> 
-  <arg name="h" value="header: {frame_id: 'map', seq: 0, stamp: {nsecs: 0, secs: 0}}" />
-  <arg name="orientation" value="orientation: {w: 1.0, x: 0.0, y: 0.0, z: 0.0}" />
-  <arg name="scale" value="scale: {x: 0.2, y: 0.2, z: 0.2}" />
-  <arg name="color" value="color: {a: 1.0, b: 1.0, g: 0.0, r: 0.0}"/>
-  <arg name="position" value="position: {x: 0.0, y: 0.0, z: 0.0}"/>
-  <arg name="pose" value="pose: {$(arg orientation), $(arg position)}"/>
-  <arg name="lt" value="lifetime: {nsecs: 0, secs: 0}"/>
-  <!-- start of race track coordinates -->
-  <arg name="p1" value="{x: 0.0, y: 0.0, z: 0.0}"/>
-  <arg name="p2" value="{x: 1.0, y: 0.0, z: 0.0}"/>
-  <arg name="p3" value="{x: 2.0, y: 0.0, z: 0.0}"/>
-  <arg name="p4" value="{x: 3.0, y: -1.0, z: 0.0}"/>
-  <arg name="p5" value="{x: 3.0, y: -2.0, z: 0.0}"/>
-  <arg name="p6" value="{x: 2.0, y: -3.0, z: 0.0}"/>
-  <arg name="p7" value="{x: 1.0, y: -3.0, z: 0.0}"/>
-  <arg name="p8" value="{x: 0.0, y: -3.0, z: 0.0}"/>
-  <arg name="p9" value="{x: -1.0, y: -2.0, z: 0.0}"/>
-  <arg name="p10" value="{x: -1.0, y: -1.0, z: 0.0}"/>
-  <arg name="p11" value="{x: 0.0, y: 0.0, z: 0.0}"/>
-  <!-- end of race track coordinates -->
-  <arg name="pts" value="points: [$(arg p1),$(arg p2),$(arg p3),$(arg p4),$(arg p5),$(arg p6),$(arg p7),$(arg p8),$(arg p9),$(arg p10),$(arg p11)]"/>  
-  <arg name="marker" value="'{$(arg h), ns: 'MWS', id: 0, type: 4, action: 0, $(arg pose), $(arg scale), $(arg color), $(arg lt), $(arg pts)}'" />
-  <node name="pub1" pkg="rostopic" type="rostopic" args="pub /shape visualization_msgs/Marker $(arg marker)"/>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_racetrack)/config/racetrack.rviz"/>
-</launch>
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Name: Grid
+      Normal Cell Count: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: 
+      Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /shape
+      Name: Marker
+      Namespaces:
+        MWS: true
+        MarkerWithShape: true
+      Queue Size: 100
+      Value: true
+    - Angle Tolerance: 0.1
+      Class: rviz/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.3
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: false
+      Enabled: true
+      Keep: 100
+      Name: Path Travelled
+      Position Tolerance: 0.1
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.1
+        Color: 255; 25; 0
+        Head Length: 0
+        Head Radius: 0
+        Shaft Length: 0.1
+        Shaft Radius: 0.05
+        Value: Arrow
+      Topic: /odom
+      Unreliable: false
+      Value: true
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+Window Geometry:
+  Height: 600
+  Width: 800
